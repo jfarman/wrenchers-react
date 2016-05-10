@@ -1,0 +1,12 @@
+{
+  "firebase": "blinding-heat-6110",
+  "public": "app",
+  "rewrites": [
+    {"source": "**", "destination": "/index.html"}
+  ],
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
