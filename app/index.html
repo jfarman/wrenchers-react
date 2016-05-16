@@ -11,28 +11,28 @@
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 
     <!-- Bootstrap -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/build/css/wrenchers-css/bootstrap.css" type='text/css'>
 
     <!-- Font awesome -->
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/build/css/wrenchers-css/font-awesome.min.css" type='text/css'>
 
     <!-- Animate.css -->
-    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="/build/css/wrenchers-css/animate.css" type='text/css'>
 
     <!-- Owl-carousel style -->
-    <link rel="stylesheet" href="assets/css/owl.carousel.css">
-    <link rel="stylesheet" href="assets/css/owl.theme.css">
+    <link rel="stylesheet" href="/build/css/wrenchers-css/owl.carousel.css" type='text/css'>
+    <link rel="stylesheet" href="/build/css/wrenchers-css/owl.theme.css" type='text/css'>
 
     <!-- magnific style -->
-    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="/build/css/wrenchers-css/magnific-popup.css" type='text/css'>
 
     <!-- Custom stylesheet-->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive.css" media="screen">
+    <link rel="stylesheet" href="/build/css/wrenchers-css/style.css" type='text/css'>
+    <link rel="stylesheet" href="/build/css/wrenchers-css/responsive.css" media="screen" type='text/css'>
 
     <!-- Added google font -->
-    <link href='http://fonts.googleapis.com/css?family=Dosis:400,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Dosis:400,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
 
     <!--Fav and touch icons-->
     <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
@@ -53,125 +53,40 @@
   <!-- this is the main js file for the react app -->   
   <script src="/build/main.js"></script>
 
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
      <!-- <script src="https://code.jquery.com/jquery.js"></script> -->
-    <script src="assets/js/jquery.min.js"></script>
+    <script src="/build/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/smoothscroll.js"></script>
-    <script src="assets/js/jquery.scrollTo.min.js"></script>
-    <script src="assets/js/jquery.localScroll.min.js"></script>
-    <script src="assets/js/jquery.nav.js"></script>
-    <script src="assets/js/owl.carousel.js"></script>
-    <script src="assets/js/jquery.magnific-popup.js"></script>
-    <script src="assets/js/jquery.parallax.js"></script>
-    <script src="assets/js/jquery.flexslider-min.js"></script>
-    <script src="assets/js/jquery.ajaxchimp.min.js"></script>
-    <script src="assets/js/matchMedia.js"></script>
-    <script src="assets/js/script.js"></script>
+    <script src="/build/js/bootstrap.min.js"></script>
+    <script src="/build/js/smoothscroll.js"></script>
+    <script src="/build/js/jquery.scrollTo.min.js"></script>
+    <script src="/build/js/jquery.localScroll.min.js"></script>
+    <script src="/build/js/jquery.nav.js"></script>
+    <script src="/build/js/owl.carousel.js"></script>
+    <script src="/build/js/jquery.magnific-popup.js"></script>
+    <script src="/build/js/jquery.parallax.js"></script>
+    <script src="/build/js/jquery.flexslider-min.js"></script>
+    <script src="/build/js/jquery.ajaxchimp.min.js"></script>
+    <script src="/build/js/matchMedia.js"></script>
+    <script src="/build/js/script.js"></script>
+    <script src="/build/js/wow.js"></script>
+    <script src="/build/js/easing.js"></script>
+
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-    <script src="assets/js/wow.js"></script>
-    <script src="assets/js/easing.js"></script>
     
     <script>
-      $(document).ready(function() {
-    // "use strict";
+        $(document).ready(function() {
+        // "use strict";
         $('#banner').parallax("50%", 0.5, true);
-        $('#feature').parallax("50%", 0.5, true);
-        $('#video').parallax("50%", 0.5, true);
-        $('#subscription').parallax("50%", 0.5, true);
-        $('#review').parallax("50%", 0.5, true);
-        $('#download').parallax("50%", 0.5, true);
+            $('#feature').parallax("50%", 0.5, true);
+            $('#video').parallax("50%", 0.5, true);
+            $('#subscription').parallax("50%", 0.5, true);
+            $('#review').parallax("50%", 0.5, true);
+            $('#download').parallax("50%", 0.5, true);
         $('#footer').parallax("50%", 0.5, true);
-      });
+        });
 
     </script>
-
-    <script>
-      // --------Google map---------------
-     var map;
-     function initialize() {  
-      // Create an array of styles.
-      var styles = [
-      {
-        stylers: [
-        { hue: "#0AABE1" },
-        { saturation: 0 }
-        ]
-      },
-      {
-        featureType: 'water',
-        stylers: [
-         { visibility: "on" },
-         { color: "#9a9efd" },
-         { weight: 2.2 },
-         { gamma: 2.54 }
-        ] 
-      },
-      {
-        featureType: "road",
-        elementType: "geometry",
-        stylers: [
-        { lightness: 100 },
-        { visibility: "simplified" }
-        ]
-      },{
-        featureType: "road",
-        elementType: "labels",
-        stylers: [
-        { visibility: "off" }
-        ]
-      }
-      ];
-
-      // Create a new StyledMapType object, passing it the array of styles,
-      // as well as the name to be displayed on the map type control.
-      var styledMap = new google.maps.StyledMapType(styles,
-      {name: "Styled Map"});
-
-      // Create a map object, and include the MapTypeId to add
-      // to the map type control.
-      var losAngeles = new google.maps.LatLng(33.8030716,-118.0725641);
-      var mapOptions = {
-      zoom: 13,
-      center: losAngeles,
-      mapTypeControlOptions: {
-        mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
-      },
-      scrollwheel: false,
-      };
-      var map = new google.maps.Map(document.getElementById('map'),
-      mapOptions);
-      
-
-      //Associate the styled map with the MapTypeId and set it to display.
-      map.mapTypes.set('map_style', styledMap);
-      map.setMapTypeId('map_style');
-
-      // To add the marker to the map, use the 'map' property
-      var image = 'assets/images/map_icon_3.png';
-      var marker = new google.maps.Marker({
-        position: losAngeles,
-        map: map,
-        title:"GRAPE App Store!",
-        icon: image
-      });
-
-     }
-    
-    </script>
-       
-  </body>
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-73640657-1', 'auto');
-    ga('send', 'pageview');
-
-  </script>
 
 </body>
 </html>

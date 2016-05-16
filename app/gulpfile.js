@@ -21,15 +21,14 @@ var historyApiFallback = require('connect-history-api-fallback')
   Styles Task
 */
 
-gulp.task('deploy', function (){
-  bundleApp(true);
-});
-
 gulp.task('styles',function() {
   // move over fonts
 
   gulp.src('css/fonts/**.*')
     .pipe(gulp.dest('build/css/fonts'))
+
+  gulp.src('css/wrenchers-css/**.*')
+    .pipe(gulp.dest('build/css/wrenchers-css'))
 
   // Compiles CSS
   gulp.src('css/style.styl')
