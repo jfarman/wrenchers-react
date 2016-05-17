@@ -46,6 +46,7 @@ var App = React.createClass({
       <div className="wrenchers-tutorial">
         <WrenchersHeader customer={this.state.customer} tutorial={this.state.tutorialName} />
         <TutorialSteps steps={this.state.steps} />
+        <FormLinkButton />
         <Footer />
       </div>
     )
@@ -592,6 +593,21 @@ var Support = React.createClass({
         </div>
       </div>
     </section>
+    )
+  }
+});
+
+var FormLinkButton = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <div className="app-block">
+          <h3>Help us improve our service!</h3>
+        </div>
+        <div className="download-block text-center">
+          <a href="#" className="btn-download" target="_blank">Fill out survey</a>
+        </div>
+      </div>
     )
   }
 });
