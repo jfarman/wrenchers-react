@@ -80,6 +80,7 @@ var Step = React.createClass({
   render : function() {
     var details = this.props.details;
     var alert = details.alert;
+    var list = details.list;
     var components =details.components;
     return (
       <div>
@@ -89,7 +90,44 @@ var Step = React.createClass({
           </h3>
         </div>
         {alert && <div className="alert alert-info" role="alert">{alert}</div> }
+        {list && <List list={list} /> }
         {components && <Components components={details.components} />}
+      </div>
+    )
+  }
+})
+
+var ListItem = React.createClass({
+  render : function() {
+    var item = this.props.details;
+    return (
+      <li>{this.props.index}. {item}</li>
+    )
+  }
+})
+
+/*
+  List
+  Usage: <List/>
+  Lists out stuff like 1 2 3 4 5 etc
+*/
+var List = React.createClass({
+  // Render method for a list item
+  renderComponent : function(key){
+    return <ListItem key={key} index={key} details={this.props.list.listItems[key]}/>
+  },
+  render : function() {
+    var list = this.props.list;
+    var title = list.title; // LISTS NEED TO HAVE A TITLE
+    var subtitle = list.subtitle; // OPTIONAL SUBTITLE
+    return (
+      <div className="media-body">
+        <h4 className="media-heading">{title}</h4>
+        {subtitle && <li><strong>{subtitle}</strong></li>}
+        <div>
+          {Object.keys(list.listItems).map(this.renderComponent)}
+        </div>
+        <a href={list.contentLink}>Read More</a>
       </div>
     )
   }
@@ -146,8 +184,10 @@ var FeaturedComponent = React.createClass({
             switch (this.props.component.componentType) {
               case "image": return (<FeaturedImage component={this.props.component}/>);
               case "video": return (<FeaturedVideo component={this.props.component}/>);
-              // Featured items should only be either images or videos, but this will return
-              // an empty div in case that FeaturedComponent is invoked improperly.
+              case "slideshow": return (<FeaturedImage component={this.props.component}/>);
+              // Featured items should only be either images, videos, or slideshows, 
+              // but this will return an empty div in case that FeaturedComponent 
+              // is invoked improperly.
               default:      return (<div></div>);
             }
           })()}
@@ -195,6 +235,10 @@ var Caption = React.createClass({
       <div className="caption">
         <h4>{this.props.text}</h4>
         <p>From <a href={this.props.link}>{this.props.source}</a></p>
+        {(this.props.componentType=="slideshow") &&
+          <div className="download-block">
+            <a href="http://www.hotrod.com/how-to/chassis-suspension/mopp-0402-rebuilding-front-suspensions-with-pst/#photo-07" className="btn-download" role="button">View Slideshow</a>
+          </div>}
       </div>
     )
   }
@@ -213,7 +257,10 @@ var FeaturedVideo = React.createClass({
         <div className="embed-responsive embed-responsive-16by9">
             <iframe className="embed-responsive-item" src={details.videoSource}></iframe>
         </div>
-        <Caption text={details.captionText} link={details.contentLink} source={details.contentLinkSource} />
+        <Caption componentType={details.componentType} 
+                 text={details.captionText} 
+                 link={details.contentLink} 
+                 source={details.contentLinkSource} />
       </div>
     )
   }
@@ -223,6 +270,7 @@ var FeaturedVideo = React.createClass({
   FeaturedImage
   Usage: <FeaturedImage/>
   Renders an image within a featured component.
+  Used for both SLIDESHOW and IMAGE types of featured components.
 */
 var FeaturedImage = React.createClass({
   render : function() {
@@ -232,11 +280,15 @@ var FeaturedImage = React.createClass({
         <a href={details.imagePath}>
             <img src={details.imagePath} alt="..."/>
         </a>
-        <Caption text={details.captionText} link={details.contentLink} source={details.contentLinkSource} />
+        <Caption componentType={details.componentType} 
+                 text={details.captionText} 
+                 link={details.contentLink} 
+                 source={details.contentLinkSource} />
       </div>
     )
   }
 })
+
 
 /*
   Tool
@@ -501,14 +553,14 @@ var Introduction = React.createClass({
               <div className="app-block wow bounceInUp" data-wow-delay=".2s">
                 <i className="fa"><img src="../assets/images/icons/partsNTools.png"/></i>
                 <h3>Curated Parts &amp; Tool Kits</h3>
-                <p>No more guess work. Wrenchers bundles the tools and parts needed to perform the specific procedures and tasks you're working on.</p>
+                <p>No more guess work. Wrenchers bundles the tools and parts needed to perform the specific procedures and tasks you''re working on.</p>
               </div>            
             </div>
             <div className="col-sm-4">
               <div className="app-block wow bounceInUp" data-wow-delay=".3s">
                 <i className="fa icon-wide"><img src="../assets/images/icons/mentorship.png"/></i>
                 <h3>Mentorship On-Demand</h3>
-                <p>Receive expert mechanic help when you need it. We'll pair you with industy vetrens that are trained to help you solve your car's problems.</p>
+                <p>Receive expert mechanic help when you need it. We''ll pair you with industy vetrens that are trained to help you solve your car''s problems.</p>
               </div>
             </div>
           </div>
