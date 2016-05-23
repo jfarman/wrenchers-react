@@ -82,6 +82,12 @@ var Step = React.createClass({
     var alert = details.alert;
     var list = details.list;
     var components =details.components;
+
+    var headerStyle = (list && list.headerStyle);
+    var componentElements = (components) ? <Components components={components} /> : <div></div>;
+    var listElement = (list) ? <List list={list}/> : <div></div>;
+    var listStyle = (components.featuredComponent) ? "col-sm-6 col-md-9" : "";
+
     return (
       <div>
         <div className="page-header" id="step1">
@@ -90,8 +96,10 @@ var Step = React.createClass({
           </h3>
         </div>
         {alert && <div className="alert alert-info" role="alert">{alert}</div> }
-        {list && <List list={list} /> }
-        {components && <Components components={details.components} />}
+        {headerStyle ?
+          <div>{listElement} {componentElements}</div> :
+          <div>{componentElements}<div>{listElement}</div></div>
+        }
       </div>
     )
   }
