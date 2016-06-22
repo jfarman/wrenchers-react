@@ -71,7 +71,7 @@ var TermsModal = React.createClass({
                 <p> test of modal text </p>
               </div>
               <div className="modal-footer">
-                <button className="btn btn-download" style={buttonStyle} data-dismiss="modal">I Agree</button>
+                <button className="btn btn-download" style={buttonStyle}>I Agree</button>
               </div>
             </div>
           </div>
