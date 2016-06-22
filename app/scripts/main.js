@@ -44,6 +44,7 @@ var App = React.createClass({
   render : function() {
     return (
       <div className="wrenchers-tutorial">
+        <TermsModal/>
         <WrenchersHeader customer={this.state.customer} tutorial={this.state.tutorialName} />
         <TutorialSteps steps={this.state.steps} />
         <FormLinkButton />
@@ -53,6 +54,32 @@ var App = React.createClass({
   }
 });
 
+var TermsModal = React.createClass({
+  render : function() {
+    var modalStyle = { display: 'block' };
+    var buttonStyle = { background: '#333333' };
+    var buttonStyleHidden = { display: 'none'} 
+
+    return (
+      <div className="modal" style={modalStyle}>
+         <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h1> title </h1>
+              </div>
+              <div className="modal-body">
+                <p> test of modal text </p>
+              </div>
+              <div className="modal-footer">
+                <button className="btn btn-download" style={buttonStyle} data-dismiss="modal">I Agree</button>
+              </div>
+            </div>
+          </div>
+      </div>
+    )
+  }
+
+});
 /*
   TutorialSteps
   Usage: <TutorialSteps/>
