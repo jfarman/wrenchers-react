@@ -8,6 +8,7 @@ var History = ReactRouter.History;
 var createBrowserHistory = require('history/lib/createBrowserHistory');
 
 var h = require('./helpers');
+var classNames = require('classnames');
 
 // Firebase
 var Rebase = require('re-base');
@@ -23,8 +24,12 @@ var App = React.createClass({
     return {
       steps : {},
       customer : "",
-      tutorialName : ""
+      tutorialName : "",
+      showModal: true
     }
+  },
+  close(){
+    this.setState({ showModal: false });
   },
   componentDidMount : function() {
     // There's probably a better way of doing this
@@ -44,7 +49,7 @@ var App = React.createClass({
   render : function() {
     return (
       <div className="wrenchers-tutorial">
-        <TermsModal/>
+        <TermsModal show={this.state.showModal} onHide={this.close}/>
         <WrenchersHeader customer={this.state.customer} tutorial={this.state.tutorialName} />
         <TutorialSteps steps={this.state.steps} />
         <FormLinkButton />
@@ -61,7 +66,7 @@ var TermsModal = React.createClass({
     var buttonStyleHidden = { display: 'none'} 
 
     return (
-      <div className="modal" style={modalStyle}>
+      <div className={classNames('modal', { hidden: !this.props.show}) } style={modalStyle}>
          <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
@@ -71,7 +76,7 @@ var TermsModal = React.createClass({
                 <p> test of modal text </p>
               </div>
               <div className="modal-footer">
-                <button className="btn btn-download" style={buttonStyle}>I Agree</button>
+                <button className="btn btn-download close" onClick={this.props.onHide} style={buttonStyle}>I Agree</button>
               </div>
             </div>
           </div>
