@@ -25,7 +25,7 @@ var App = React.createClass({
       steps : {},
       customer : "",
       tutorialName : "",
-      showModal: true
+      // showModal: true
     }
   },
   close(){
@@ -53,6 +53,7 @@ var App = React.createClass({
         <WrenchersHeader customer={this.state.customer} tutorial={this.state.tutorialName} />
         <TutorialSteps steps={this.state.steps} />
         <FormLinkButton />
+        <Disclaimer />
         <Footer />
       </div>
     )
@@ -62,21 +63,21 @@ var App = React.createClass({
 var TermsModal = React.createClass({
   render : function() {
     var modalStyle = { display: 'block' };
-    var buttonStyle = { background: '#333333' };
-    var buttonStyleHidden = { display: 'none'} 
+    var buttonStyle = { };
+    // var buttonStyleHidden = { display: 'none'} 
 
     return (
       <div className={classNames('modal', { hidden: !this.props.show}) } style={modalStyle}>
          <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h1> title </h1>
+                <h1> We're in Beta </h1>
               </div>
               <div className="modal-body">
-                <p> test of modal text </p>
+                <p> Wrenchers.co is continually updating and improving our content.  </p>
               </div>
-              <div className="modal-footer">
-                <button className="btn btn-download close" onClick={this.props.onHide} style={buttonStyle}>I Agree</button>
+              <div className="modal-footer download-block">
+                <a className="btn-download " onClick={this.props.onHide} style={buttonStyle}>I Agree</a>
               </div>
             </div>
           </div>
@@ -428,6 +429,24 @@ var Footer = React.createClass({
   }
 })
 
+var Disclaimer = React.createClass({
+  render : function() {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-2"></div>
+            <div className="col-sm-8 text-center disclaimer">
+              <h2> Disclaimer </h2>
+              <p>Wrenchers is a pro-car, pro-motorcycle site that helps with car maintenance. If you hurt your vehicle or yourself, wrenchers is not responsible. for more information please read our <a href="/disclaimer" target="_blank">Exclusion of Liability.</a> </p>
+            </div>
+
+        </div>
+      </div>
+      )
+
+  }
+
+})
 /*
   NotFound
   Usage: component={NotFound}
@@ -705,6 +724,23 @@ var FormLinkButton = React.createClass({
   }
 });
 
+/*
+  Disclaimer
+  Usage: component={Disclaimer}
+  This is the disclaimer component which is accessed via the disclaimer link.
+*/
+var DisclaimerView = React.createClass({
+  render: function() {
+    return (
+      <div className="container disclaimer">
+      <h3>Exclusion of Liability:</h3>
+
+WRENCHERS LLC IS NOT RESPONSIBLE OR LIABLE IN ANY MANNER FOR ANY USER GENERATED CONTENT AT WRENCHERS.CO, OR FOR CONTENT LINKED TO THROUGH WRENCHERS.CO. WE ARE NOT RESPONSIBLE OR LIABLE FOR ANY DAMAGES TO YOUR VEHICLE OR YOUR PERSON.
+TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAWS WE, ON BEHALF OF OUR DIRECTORS, OFFICERS, EMPLOYEES, AGENTS, SUPPLIERS, LICENSORS AND SERVICE PROVIDERS, EXCLUDE AND DISCLAIM LIABILITY FOR ANY LOSSES AND EXPENSES OF WHATEVER NATURE AND HOWSOEVER ARISING INCLUDING, WITHOUT LIMITATION, ANY DIRECT, INDIRECT, GENERAL, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL DAMAGES; LOSS OF USE; LOSS OF DATA; LOSS CAUSED BY A VIRUS; LOSS OF INCOME OR PROFIT; LOSS OF OR DAMAGE TO PROPERTY; CLAIMS OF THIRD PARTIES; OR OTHER LOSSES OF ANY KIND OR CHARACTER, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES OR LOSSES, ARISING OUT OF OR IN CONNECTION WITH THE USE OF THE SITES OR ANY WEB SITE WITH WHICH THEY ARE LINKED, OR ANY MERCHANDISE AVAILABLE ON OUR SITES. YOU ASSUME TOTAL RESPONSIBILITY FOR ESTABLISHING SUCH PROCEDURES FOR DATA BACK UP AND VIRUS CHECKING AS YOU CONSIDER NECESSARY. YOU ALSO ASSUME TOTAL RESPONSIBILITY FOR ESTABLISHING SAFE PROCEDURES FOR YOUR PERSONAL BODILY SAFETY AND THE SAFETY OR DAMAGE OF YOUR VEHICLE, CHECKING AS YOU CONSIDER NECESSARY. WRENCHERS IS NOT RESPONSIBLE FOR DAMAGE TO ANY BODILY OR PROPERTY DAMAGE TO THRID PARTIES AS A RESULT OF WORKING ON YOUR VEHICLE. THIS LIMITATION OF LIABILITY APPLIES WHETHER THE ALLEGED LIABILITY IS BASED ON CONTRACT, TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY OR ANY OTHER BASIS.
+      </div>
+    )
+  }
+});
 
 /*
   Routes
@@ -713,6 +749,7 @@ var routes = (
   <Router history={createBrowserHistory()}>
     <Route path="/" component={Home}/>
     <Route path="/tutorials/:tutorialId" component={App}/>
+    <Route path="/disclaimer" component={DisclaimerView}/>
     <Route path="*" component={NotFound}/>
   </Router>
 )

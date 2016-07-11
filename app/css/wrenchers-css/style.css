@@ -1712,3 +1712,16 @@ section.contact > .container {
 .jumbotron.tutorial {
   margin-top: 60px;
 }
+
+
+/*//////////////////*/
+/*CUSTOM STYLES*/
+/*//////////////////*/
+
+
+.disclaimer {
+  background: #dddddd;
+  padding: 20px;
+  margin-top: 50px;
+  border-radius: 4px;
+}
