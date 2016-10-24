@@ -52,8 +52,6 @@ var App = React.createClass({
         <TermsModal show={this.state.showModal} onHide={this.close}/>
         <WrenchersHeader customer={this.state.customer} tutorial={this.state.tutorialName} />
         <TutorialSteps steps={this.state.steps} />
-        <FormLinkButton />
-        <Disclaimer />
         <Footer />
       </div>
     )
@@ -118,12 +116,12 @@ var Step = React.createClass({
 
     var headerStyle = (list && list.headerStyle);
     var componentElements = (components) ? <Components components={components} /> : <div></div>;
-    var listElement = (list) ? <List list={list}/> : <div></div>;
+    var listElement = (list) ? <List list={list}/> : <div className="col-lg-9 col-md-9"></div>;
     var listStyle = (components.featuredComponent) ? "col-sm-6 col-md-9" : "";
 
     return (
-      <div>
-        <div className="page-header" id="step1">
+      <div className="row">
+        <div className="step text-center">
           <h3>{details.stepName}<br/>
             <small>{details.subtitle}</small>
           </h3>
@@ -162,13 +160,15 @@ var List = React.createClass({
     var title = list.title; // LISTS NEED TO HAVE A TITLE
     var subtitle = list.subtitle; // OPTIONAL SUBTITLE
     return (
-      <div className="media-body">
+      <div className="media-body contentList">
         <h4 className="media-heading">{title}</h4>
         {subtitle && <li><strong>{subtitle}</strong></li>}
         <div>
           {Object.keys(list.listItems).map(this.renderComponent)}
+          <div className="contentCredit">
+          <a href={list.contentLink}>Read More</a>
+          </div>
         </div>
-        <a href={list.contentLink}>Read More</a>
       </div>
     )
   }
@@ -193,7 +193,7 @@ var Components = React.createClass({
     var oClass = "col-sm-6 col-md-9";
 
     return (
-      <div className="row">
+      <div>
           {featured &&  // if this component contains a featured component, render it
             <div className={fClass}>
               <FeaturedComponent component={featured}/>
@@ -248,7 +248,7 @@ var OtherComponent = React.createClass({
     var details = this.props.details;
     var image = details.image;
     return (
-      <div className="media">
+      <div className="media component">
         <div className="media pull-left">
           {image && // if this component has a corresponding image, render it
             <a href={details.contentLink}>
@@ -258,7 +258,8 @@ var OtherComponent = React.createClass({
         </div>
         <div className="media-body">
           <h4 className="media-heading">{details.heading}</h4>
-          <p>{details.textPreview}<a href={details.contentLink}>Read More</a></p>
+          <p>{details.textPreview}</p>
+          <a href={details.contentLink}>Read More</a>
         </div>
       </div>
     )
@@ -343,7 +344,7 @@ var Tool = React.createClass({
     var imageStyles = {height: '225px'};
     return (
       <div className="col-sm-6 col-md-3">
-        <div className="thumbnail">
+        <div className="thumbnail tool">
             {image && // if this component has a corresponding image, render it
               <a href={details.itemLink}>
                 <img src={image} alt="..." style={imageStyles}/>
@@ -388,14 +389,31 @@ var ToolsList = React.createClass({
 var WrenchersHeader = React.createClass({
   render : function() {
     return (
-      <div className="jumbotron">
-        <div className="container">
-          <h1>Let's Get Wrenching</h1>
-          <p>{this.props.customer}, welcome to your customized Wrenchers Tutorial. We've curated a collection of general info, how-to videos and parts to help you work on your 
-            <strong> {this.props.tutorial}</strong>
-          </p>
-        </div>
-      </div>
+      <header id="home" className="navbar-fixed-top">
+        <nav className="navbar navbar-default" role="navigation">
+          <div className="container">
+            <div className="row">
+              <div className="col-sm-9">
+              <div className="back-btn">
+                <a href="/tutorials">
+                  <div className="arrow-left" />
+                </a>
+              </div>
+              <h4 className="tutorial-title">{this.props.tutorial}</h4>
+              </div>
+              <div className="col-sm-3">
+                {/* Collect the nav toggling */}
+                <div className="collapse navbar-collapse navbar-example" id="bs-example-navbar-collapse-1">
+                  <ul className="nav navbar-nav">
+                    <li className="customize"><a href="#"><img src="../assets/images/icons/customize-icon.png" /></a></li>
+                    <li><a href="#">Register</a></li>
+                  </ul>             
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
     )
   }
 })
@@ -412,40 +430,62 @@ var Footer = React.createClass({
       <div className="trans-bg">
         <div className="container">
           <div className="row">
-            <div className="col-sm-12 text-center">
-               <div className="copyright">
-                <p>&copy; <span>The Wrenchers Project</span>2016, Some rights reserved</p>
-              </div>
-                <p>steven@wrenchers.co</p>
+          <div className="col-lg-4 col-md-4 col-sm-4">
+            <FormLinkButton />
+          </div>
+            <div className="col-lg-4 col-md-4 col-sm-4">
+              <Disclaimer/>
+            </div>
+            <div className="col-lg-4 col-md-4 col-sm-4">
+            <FooterNav />
             </div>
             </div>
           </div>
-        <div id="go-to-top">
-            <a href="#banner"></a>
+          <div className="Row">
+            <div className="col-lg-12 col-md-12 col-sm-12 text-center">
+              <div className="copyright">
+              <p>&copy; <span>The Wrenchers Project</span>2016, Some rights reserved</p>
+            </div>
+          </div>
         </div>
       </div>
       </footer>
     )
   }
 })
-
+/*
+  Disclaimer
+  Usage: <Disclaimer/>
+  Renders the Disclaimer that makes Wrenchers legit
+*/
 var Disclaimer = React.createClass({
   render : function() {
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-2"></div>
-            <div className="col-sm-8 text-center disclaimer">
-              <h2> Disclaimer </h2>
-              <p>Wrenchers is a pro-car, pro-motorcycle site that helps with car maintenance. If you hurt your vehicle or yourself, wrenchers is not responsible. for more information please read our <a href="/disclaimer" target="_blank">Exclusion of Liability.</a> </p>
-            </div>
-
-        </div>
+      <div className="text-center disclaimer">
+        <h4> Disclaimer </h4>
+        <p>Wrenchers is a pro-car, pro-motorcycle site that helps with car maintenance. If you hurt your vehicle or yourself, Wrenchers is not responsible. for more information please read our <a href="/disclaimer" target="_blank">Exclusion of Liability.</a> </p>
       </div>
-      )
+    )
 
   }
 
+})
+/*
+  FooterNav
+  Usage: <FooterNav/>
+  Navigation menu to be rendered within the awesome foot-hair
+*/
+var FooterNav = React.createClass({
+  render : function() {
+    return (
+      <ul className="nav">
+                    <li><a href="../tutorials">Tutorials</a></li>
+                    <li><a href="#intro">Services</a></li>
+                    <li><a href="#footer">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+       </ul>     
+    )
+  }
 })
 /*
   NotFound
@@ -456,8 +496,140 @@ var NotFound = React.createClass({
   render : function() {
     return <h1>Not Found!</h1>
   }
+})
+/*
+Tutorials
+  Usage: component={Tutorials}
+  This is where a list of tutorials can be viewed
+*/
+var Tutorials = React.createClass({
+  getInitialState : function() {
+    return {
+      tutorialName: "",
+    }
+  },
+
+  render : function() {
+    return (
+      <div className="tutorials-view container-fluid" >
+      <HeaderApp />
+      <TutorialsList />
+      <Footer/>
+      </div>
+    )
+  }
 });
 
+var HeaderApp = React.createClass({
+  render : function() {
+    return (
+      <header id="blue" className="navbar-fixed-top">
+        <nav className="navbar navbar-default" role="navigation">
+          <div className="container">
+            <div className="row">
+              <div className="col-sm-3">
+                {/* Brand and toggle get grouped for better mobile display */}
+                <div className="navbar-header">
+                  <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span className="sr-only">Toggle navigation</span>
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>
+                  </button>
+                  <h1><a className="nav-brand" href="/"> <img src="../assets/images/logoNav.jpg" alt="Wrenchers"/></a></h1>
+                </div>
+              </div>
+              <div className="col-sm-9">
+                {/* Collect the nav toggling */}
+                <div className="collapse navbar-collapse navbar-example" id="bs-example-navbar-collapse-1">
+                  <ul className="nav navbar-nav">
+                    <li><a href="#">Register</a></li>
+                  </ul>             
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+    )
+  }
+});
+
+/*
+  TutorialsList
+  Usage: component={TutorialsList}
+  This should be the main component when viewing all the tutorials
+*/
+
+var TutorialsList = React.createClass({
+  render : function() {
+    return (
+      <div className="container">
+        <div className="row">
+          <TutorialThumb 
+            tutName="Installing a swaybar on a Miata" 
+            tutLink="/tutorials/deval"
+            imgURL="https://upload.wikimedia.org/wikipedia/commons/a/a9/Alfetta_front_suspension_antiroll.jpg" 
+          />
+          <TutorialThumb 
+            tutName="Coilover swap on a Mazda Miata" 
+            tutLink="/tutorials/deval"
+            imgURL="../assets/images/content/hacw/coil-over-1.png" 
+          />
+          <TutorialThumb 
+            tutName="Installing a cold air intake on a Miata" 
+            tutLink="/tutorials/deval"
+            imgURL="https://upload.wikimedia.org/wikipedia/commons/a/af/Mazda_Protege5_engine_with_aftermarket_intake.jpg"
+          />
+          <TutorialThumb 
+            tutName="Tutorial 5" 
+            tutLink="/tutorials/deval"
+            imgURL="http://speed.academy/wp-content/uploads/2015/03/Nissan-S13-project-cooling-002.jpg"
+          />
+          <TutorialThumb 
+            tutName="Tutorial 6" 
+            tutLink="/tutorials/deval"
+            imgURL="http://speed.academy/wp-content/uploads/2015/03/Nissan-S13-project-cooling-002.jpg"
+          />
+          <TutorialThumb 
+            tutName="Touching up your paint" 
+            tutLink="/tutorials/deval"
+            imgURL="../assets/images/content/painting-a-car.jpg"
+          />
+        </div>
+      </div>
+      )
+  }
+});
+
+// TutorialThumb
+//   Usage: component={TutorialThumb}
+
+var TutorialThumb = React.createClass({
+  render : function() {
+    var image = this.props.imgURL
+    var style = { 
+      backgroundImage : 'url(' + image + ')',
+    }
+    return (
+      <a href={this.props.tutLink}>
+        <div className="col-md-4" >
+          <div className="thumbnail">
+            <div className="tutorial-thumb" style = {style} />
+            <div className="caption">
+                  <h5>{this.props.tutName}</h5>
+                  {this.props.children}
+              </div>
+          </div>
+        </div>
+      </a>
+    )
+  }
+});
+var tutData = [
+  {id: 1, title: "Sway Bar on a Mazda Miata", image: "http://www.gtsparkplugs.com/images/sway-bar-action.jpg"},
+  {id: 2, title: "Coilvers a Mazda Miata", image: "http://www.gtsparkplugs.com/images/sway-bar-action.jpg"}
+];
 /*
   Home
   Usage: component={Home}
@@ -468,10 +640,11 @@ var Home = React.createClass({
     return (
       <div className="wrenchers-home">
         <Preloader />
-        <Header />
+        <HeaderHome />
         <Banner />
-        <Introduction />
+        <FeaturedTutorials />
         <IntroductionVideo />
+        <Introduction />
         <Support />
         <Footer />
       </div>
@@ -490,10 +663,10 @@ var Preloader = React.createClass({
   }
 });
 
-var Header = React.createClass({
+var HeaderHome = React.createClass({
   render : function() {
     return(
-      <header id="home" className="navbar-fixed-top">
+      <header  className="navbar-fixed-top">
         <nav className="navbar navbar-default" role="navigation">
           <div className="container">
             <div className="row">
@@ -513,8 +686,8 @@ var Header = React.createClass({
                 {/* Collect the nav toggling */}
                 <div className="collapse navbar-collapse navbar-example" id="bs-example-navbar-collapse-1">
                   <ul className="nav navbar-nav">
+                    <li><a href="../tutorials">Tutorials</a></li>
                     <li><a href="#intro">Services</a></li>
-                    <li><a href="#video">Testimonials</a></li>
                     <li><a href="#support">Our Team</a></li>
                     <li><a href="#footer">Contact</a></li>
                     <li><a href="#">Blog</a></li>
@@ -544,22 +717,8 @@ var Banner = React.createClass({
               <div className="col-sm-12">   
                 <div className="banner-img"></div>
                 <div className="download-block text-center">
-                  <a href="http://goo.gl/forms/XjqxEnVhDa" className="btn-download" target="_blank">Get a Beta Tutorial</a>
+                  <a href="/tutorials" className="btn-download">View Tutorials</a>
                 </div>
-                {/*              
-                  <h2><a href="" className="lg-logo">The best way to learn how to work on a car.</a></h2>
-                  <div className="flex_text text-slider">
-                    <ul className="slides">
-                      <li>Get matched with experienced mechanic mentors.</li>
-                      <li>Gain confidence and knowldege about cars &amp; motorcycles.</li>
-                    </ul>
-                  </div>
-                  <ul className="app">
-                    <li><a href=""><i className="fa fa-apple"></i></a></li>
-                    <li><a href=""><i className="fa fa-android"></i></a></li>
-                    <li><a href=""><i className="fa fa-windows"></i></a></li>
-                  </ul>
-                */} 
               </div>
             </div>
           </div>
@@ -569,6 +728,43 @@ var Banner = React.createClass({
           </div>
           */}
         </div>                          
+      </section>
+    )
+  }
+});
+
+var FeaturedTutorials = React.createClass({
+  render: function() {
+    return (
+      <section className="intro white" id="featured">
+        <div className="container">
+          <div className="col-sm-12 text-center">
+              <div className="title wow fadeInRight">
+                <h2>Featured Tutorials</h2>
+              </div>
+          </div>
+          <div className="col-md-4 tutorial-thumb">
+            <a href="#">
+              <div className="featured-tut">
+              </div>
+            </a>
+          </div>
+          <div className="col-md-4 tutorial-thumb featured">
+            <a href="#">
+              <div className="featured-tut">
+              </div>
+            </a>
+          </div>
+          <div className="col-md-4 tutorial-thumb featured">
+            <a href="#">
+              <div className="featured-tut">
+              </div>
+            </a>
+          </div>
+          <div className="download-block text-center">
+            <a href="/tutorials" className="btn-download">View All Tutorials</a>
+          </div>
+        </div>
       </section>
     )
   }
@@ -624,9 +820,6 @@ var Introduction = React.createClass({
               </div>
             </div>
           </div>
-          <div className="download-block text-center">
-            <a href="http://goo.gl/forms/XjqxEnVhDa" className="btn-download" target="_blank">Get a Personalized Tutorial</a>
-          </div>
         </div>
       </section>
     )
@@ -643,9 +836,9 @@ var IntroductionVideo = React.createClass({
             <div className="row">
               <div className="col-sm-12 text-center">
                 <div className="video-mask">
-                  <h2 className="wow bounceInDown">Testimonial</h2>
+                  <h2>Testimonial</h2>
                   <iframe src="https://www.youtube.com/embed/vkgyNTczz9A?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-                  <span className="wow bounceInUp">watch video</span>
+                  <span>watch video</span>
                 </div>            
               </div>
             </div>
@@ -748,10 +941,14 @@ TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAWS WE, ON BEHALF OF OUR DIRECTOR
 var routes = (
   <Router history={createBrowserHistory()}>
     <Route path="/" component={Home}/>
+    <Route path="/tutorials" component={Tutorials}/>
     <Route path="/tutorials/:tutorialId" component={App}/>
     <Route path="/disclaimer" component={DisclaimerView}/>
     <Route path="*" component={NotFound}/>
   </Router>
 )
 
-ReactDOM.render(routes, document.querySelector('#main'));
+ReactDOM.render(
+  routes, 
+  document.querySelector('#main')
+  );
